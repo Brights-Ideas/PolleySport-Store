@@ -1,0 +1,19 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Role", new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label for="Name">Role Name:</label>
+        <input type="text" class="form-control" id="Name" name="Name" placeholder="Role name">
+    </div>
+ 
+    <button type="submit" class="btn btn-default">Create Role</button>
+
+}
+
+@Html.ActionLink("Back to List", "Index")
