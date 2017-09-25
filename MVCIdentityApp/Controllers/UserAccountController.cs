@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MVCIdentityApp.Controllers
 {
@@ -13,10 +15,27 @@ namespace MVCIdentityApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        public UserAccountController()
+        {
+            //_context = new ApplicationDbContext();
+        }
+
+
+        public UserAccountController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get => _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            private set => _userManager = value;
+        }
+
         // GET: UserAccount
         public ActionResult Index()
         {
-            return View();
+            return View(UserManager.Users);
         }
 
         // GET: UserAccount/Details/5
@@ -48,9 +67,10 @@ namespace MVCIdentityApp.Controllers
         }
 
         // GET: UserAccount/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            var user = await UserManager.FindByIdAsync(id);
+            return View(user);
         }
 
         // POST: UserAccount/Edit/5

@@ -1,0 +1,44 @@
+﻿@using MVCIdentityApp.Models
+@model IEnumerable<ApplicationUser>
+@{
+    ViewBag.Title = "User Management";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading"><h2>@ViewBag.Title</h2></div>
+    <div class="panel-body">
+        <table class="table table-condensed table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="3" class="text-center">
+                        No User Accounts
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (ApplicationUser user in Model)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>
+                            @Html.ActionLink("Manage", "Edit","UserAccount", new { id = user.Id }, new { @class = "btn btn-success" })
+                            <a class="btn btn-danger" asp-controller="UserAccount" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
