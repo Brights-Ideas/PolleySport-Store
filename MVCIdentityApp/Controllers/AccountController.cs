@@ -375,9 +375,7 @@ namespace MVCIdentityApp.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
-                    Email = model.Email,
-                    BirthDate = model.BirthDate = DateTime.Today,
-                    Town = model.Town
+                    Email = model.Email
                 };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)

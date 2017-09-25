@@ -9,10 +9,6 @@ namespace MVCIdentityApp.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        public string Town { get; set; }
-        [Display(Name = "D.O.B")]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateTime BirthDate { get; set; }
     }
 
     public class ExternalLoginListViewModel
