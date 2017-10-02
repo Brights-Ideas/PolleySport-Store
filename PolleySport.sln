@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCIdentityApp", "MVCIdentityApp\MVCIdentityApp.csproj", "{18752EE7-FDE7-4F20-B48D-F5B152130901}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "MVCIdentityApp\Identity.csproj", "{18752EE7-FDE7-4F20-B48D-F5B152130901}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySportStore", "PolleySportStore\PolleySportStore.csproj", "{9D8CE7E6-7984-48D9-AEA4-B0E94BB343A0}"
 EndProject

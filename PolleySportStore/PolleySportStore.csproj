@@ -150,99 +150,48 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="aspnet_Applications.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Membership.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Membership_GetPassword_Result.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Membership_GetUserByName_Result.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Membership_GetUserByUserId_Result.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Paths.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_PersonalizationAllUsers.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_PersonalizationPerUser.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Profile.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Profile_GetProperties_Result.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Roles.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_SchemaVersions.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_Users.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_UsersInRoles.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_UsersInRoles_RemoveUsersFromRoles_Result.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
-    <Compile Include="aspnet_WebEvent_Events.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
     <Compile Include="Cart.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
-    <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>Store.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="OrderDetail.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductAttribute.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store.Context.cs">
+    <Compile Include="StoreEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store.Context.tt</DependentUpon>
+      <DependentUpon>StoreEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Store.cs">
+    <Compile Include="StoreEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Store.Designer.cs">
+    <Compile Include="StoreEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Store.edmx</DependentUpon>
+      <DependentUpon>StoreEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="SubCategory.cs">
-      <DependentUpon>Store.tt</DependentUpon>
+      <DependentUpon>StoreEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -269,15 +218,15 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Store.Context.tt">
+    <Content Include="StoreEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Store.Context.cs</LastGenOutput>
-      <DependentUpon>Store.edmx</DependentUpon>
+      <DependentUpon>StoreEntities.edmx</DependentUpon>
+      <LastGenOutput>StoreEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Store.tt">
+    <Content Include="StoreEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Store.edmx</DependentUpon>
-      <LastGenOutput>Store.cs</LastGenOutput>
+      <DependentUpon>StoreEntities.edmx</DependentUpon>
+      <LastGenOutput>StoreEntities.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -293,15 +242,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <EntityDeploy Include="Store.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Store.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Store.edmx.diagram">
-      <DependentUpon>Store.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Store\Details.cshtml" />
+    <EntityDeploy Include="StoreEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="StoreEntities.edmx.diagram">
+      <DependentUpon>StoreEntities.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

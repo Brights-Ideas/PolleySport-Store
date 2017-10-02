@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace MVCIdentityApp.Controllers
 {
     [RequireHttps]
-    public class HomeController : Controller
+    public class StoreHomeController : Controller
     {
         public ActionResult Index()
         {

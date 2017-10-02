@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MVCIdentityApp.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class RoleController : Controller
     {
         private ApplicationRoleManager _roleManager;
@@ -55,7 +55,6 @@ namespace MVCIdentityApp.Controllers
         }
 
         // GET: Role
-        //[Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             var roles = _context.Roles.ToList();
@@ -69,7 +68,7 @@ namespace MVCIdentityApp.Controllers
         }
 
         // GET: Role/Create
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             var role = new IdentityRole();
