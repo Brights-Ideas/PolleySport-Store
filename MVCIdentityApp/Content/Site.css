@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.panel-widget .icon {
+    position: absolute;
+    right: 20px;
+}
+
+.panel-green {
+    background-color: #1fa67b;
+    color: #fff;
+}
+
+.panel-widget .text-huge {
+    font-size: 36px;
+}
+
+.panel-widget .title {
+    text-transform: uppercase;
+}

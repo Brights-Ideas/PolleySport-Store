@@ -1,47 +1,140 @@
-﻿@model MVCIdentityApp.Models.ApplicationUser
-
+﻿@using GravatarHelper.Common
+@model MVCIdentityApp.Models.ApplicationUser
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
+<div id="page-wrapper">
+    <div class="container-fluid">
 
-<div class="panel panel-primary">
-    <div class="panel-heading"><h2>Edit User</h2></div>
-    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    @Model.Email
+                    <small>edit user details</small>
+                </h1>
+            </div>
+        </div>
 
-        <form method="post" asp-controller="UserAccount" asp-action="Edit" asp-antiforgery="true" class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label col-sm-2" asp-for="Id">Id: </label>
-                <div class="col-sm-4">
-                    <input class="form-control" value="@Model.Id" disabled />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" for="UserName">Name: </label>
-                <div class="col-sm-4">
-                    <input class="form-control" value="@Model.UserName" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2" asp-for="Email">Email:</label>
-                <div class="col-sm-4">
-                    <input class="form-control" value="@Model.Email" />
-                </div>
-            </div>
-            <div class="form-group">
-                <!--only hashed passwords are stored in the database and the User class doesn't contain password property-->
-                <label class="control-label col-sm-2" for="password">Password:</label>
-                <div class="col-sm-4">
-                    <input class="form-control" name="password" type="password" />
-                </div>
-            </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-7">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                
+                    <div class="panel panel-default">
+                        <div class="panel-heading">User Details</div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="first_name">Role</label>
+                                        <select class="form-control" id="role_id" name="role_id"><option value="1">Admin</option><option value="13">docAdmin</option><option value="11">docCreator</option><option value="10">docReader</option><option value="20">SystemAdmin</option><option value="2" selected="selected">@Model.Roles</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" id="status" name="status"><option value="Active">Active</option><option value="Banned">Banned</option><option value="Unconfirmed" selected="selected">Unconfirmed</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="first_name">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" value="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last_name">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="">
+                                    </div>
+                                </div>
 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-4">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="reset" class="btn btn-primary">Reset</button>
-                    <a class="btn btn-primary" asp-controller="SuperAdmin" asp-action="Index">Cancel</a>
-                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary" id="update-details-btn">
+                                        <i class="fa fa-refresh"></i>
+                                        Update Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-        </form>
+            <div class="col-lg-4 col-md-5">
+                <form method="POST" action="https://demo.vanguardapp.io/user/191/update/avatar" accept-charset="UTF-8" id="avatar-form" enctype="multipart/form-data">
+                    <input name="_token" type="hidden" value="RptXJjg9PNpIBEVHEhRDN7Y9rnLqNL1GehPHWaG0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Avatar</div>
+                        <div class="panel-body avatar-wrapper">
+                            <div class="spinner">
+                                <div class="spinner-dot"></div>
+                                <div class="spinner-dot"></div>
+                                <div class="spinner-dot"></div>
+                            </div>
+                            <div id="avatar"></div>
+                            <div>
+                                
+                                <img class="avatar avatar-preview img-circle" src="https://demo.vanguardapp.io/assets/img/profile.png">
+                                <div id="change-picture" class="btn btn-default btn-block" data-toggle="modal" data-target="#choose-modal">
+                                    <i class="fa fa-camera"></i>
+                                    Change Photo
+                                </div>
+                                <div class="row avatar-controls">
+                                    <div class="col-md-6">
+                                        <div id="cancel-upload" style="text-align: center;" class="btn btn-block btn-danger">
+                                            <i class="fa fa-times"></i> Cancel
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" id="save-photo" style="text-align: center;" class="btn btn-success btn-block">
+                                            <i class="fa fa-check"></i> Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="choose-modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-4 avatar-source" id="no-photo" data-url="https://demo.vanguardapp.io/user/191/update/avatar/external">
+                                            <img src="https://demo.vanguardapp.io/assets/img/profile.png" class="img-circle">
+                                            <p>No Photo</p>
+                                        </div>
+                                        <div class="col-md-4 avatar-source">
+                                            <div class="btn btn-default btn-upload">
+                                                <i class="fa fa-upload"></i>
+                                                <input type="file" name="avatar" id="avatar-upload">
+                                            </div>
+                                            <p>Upload Photo</p>
+                                        </div>
+                                        <div class="col-md-4 avatar-source source-external" data-url="https://demo.vanguardapp.io/user/191/update/avatar/external">
+                                            <img src="//www.gravatar.com/avatar/68b83679e025367f726124d604e1e626" class="img-circle">
+                                            <p>Gravatar</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+                    <div style="display: none;">
+                        <input type="hidden" name="points[x1]" id="points_x1">
+                        <input type="hidden" name="points[y1]" id="points_y1">
+                        <input type="hidden" name="points[x2]" id="points_x2">
+                        <input type="hidden" name="points[y2]" id="points_y2">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
     </div>
+
 </div>
