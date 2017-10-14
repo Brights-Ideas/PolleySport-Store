@@ -26,21 +26,7 @@
 				</a>
 			</div>
 			<div class="col-md-5"></div>
-			<form method="GET" action="" accept-charset="UTF-8" id="users-form">
-				<div class="col-md-2">
-					<select id="status" class="form-control" name="status"><option value="" selected="selected">All</option><option value="Active">Active</option><option value="Banned">Banned</option><option value="Unconfirmed">Unconfirmed</option></select>
-				</div>
-				<div class="col-md-3">
-					<div class="input-group custom-search-form">
-						<input type="text" class="form-control" name="search" value="" placeholder="Search for users...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit" id="search-users-btn">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</span>
-					</div>
-				</div>
-			</form>
+			
 		</div>
 
 		<div class="table-responsive top-border-table" id="users-table-wrapper">
@@ -51,7 +37,6 @@
 			        <th>Full Name</th>
 			        <th>Email</th>
 			        <th>Registration Date</th>
-			        <th>Status</th>
 			        <th class="text-center">Action</th>
 			    </tr>
 			    </thead>
@@ -75,13 +60,8 @@
 			            <td>Dariusz Szymczak</td>
 			            <td>@user.Email</td>
 			            <td> 2017-10-02</td>
-			            <td>
-			                <span class="label label-success">.</span>
-			            </td>
+			            
 			            <td class="text-center">
-			                <a href="https://demo.vanguardapp.io/user/185/sessions" class="btn btn-info btn-circle" title="" data-toggle="tooltip" data-placement="top" data-original-title="User Sessions">
-			                    <i class="fa fa-list"></i>
-			                </a>
 			                <a href="https://demo.vanguardapp.io/user/185/show" class="btn btn-success btn-circle" title="" data-toggle="tooltip" data-placement="top" data-original-title="View User">
 			                    <i class="glyphicon glyphicon-eye-open"></i>
 			                </a>

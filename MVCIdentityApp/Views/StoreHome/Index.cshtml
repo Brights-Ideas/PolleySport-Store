@@ -1,5 +1,7 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using PolleySportStore.Models
+@{
+	ViewBag.Title = "Home Page";
+	var products = new List<PolleySportStore.Product>().Count;
 }
 
 <div id="page-wrapper">
@@ -68,15 +70,15 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-7">
-                                <div class="title">Total Users</div>
-                                <div class="text-huge">128</div>
+                                <div class="title">Total Products</div>
+                                <div class="text-huge">@ViewBag.ProductCount</div>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-users fa-5x"></i>
                             </div>
                         </div>
                     </div>
-                    <a href="@Url.Action("Index", "UserAccount")">
+                    <a href="@Url.Action("Index", "StoreManager")">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

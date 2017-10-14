@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PolleySportStore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,12 @@ namespace MVCIdentityApp.Controllers
     [RequireHttps]
     public class StoreHomeController : Controller
     {
+        readonly StoreEntities storeDB = new StoreEntities();
+
         public ActionResult Index()
         {
+           // ViewBag.UserCount = storeDB..Products.ToList().Count;
+            ViewBag.ProductCount = storeDB.Products.ToList().Count;
             return View();
         }
 

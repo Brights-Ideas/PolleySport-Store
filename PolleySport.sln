@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "MVCIdentityApp\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySportStore", "PolleySportStore\PolleySportStore.csproj", "{9D8CE7E6-7984-48D9-AEA4-B0E94BB343A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySport.Store.Management.Web", "Store.Management.Web\PolleySport.Store.Management.Web.csproj", "{35381163-0E04-4169-A3DB-1FE65C0CB349}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9D8CE7E6-7984-48D9-AEA4-B0E94BB343A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D8CE7E6-7984-48D9-AEA4-B0E94BB343A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D8CE7E6-7984-48D9-AEA4-B0E94BB343A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35381163-0E04-4169-A3DB-1FE65C0CB349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35381163-0E04-4169-A3DB-1FE65C0CB349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35381163-0E04-4169-A3DB-1FE65C0CB349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35381163-0E04-4169-A3DB-1FE65C0CB349}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

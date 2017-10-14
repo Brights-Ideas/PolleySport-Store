@@ -23,6 +23,7 @@ textarea {
     max-width: 280px;
 }
 
+/* User Management area */
 .panel-widget .icon {
     position: absolute;
     right: 20px;
@@ -39,4 +40,25 @@ textarea {
 
 .panel-widget .title {
     text-transform: uppercase;
+}
+
+.img-circle.avatar {
+	border: 2px solid #ccc;
+	padding: 2px;
+}
+
+@media (min-width: 991px) {
+	.avatar-wrapper .avatar-preview {
+		margin-top: 55px;
+		margin-bottom: 80px;
+	}
+}
+
+.avatar-preview {
+	width: 160px;
+	height: 160px;
+}
+
+.avatar-wrapper {
+	text-align: center;
 }
