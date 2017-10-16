@@ -4,7 +4,7 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
-//using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
 using System;
@@ -45,7 +45,7 @@ namespace Store.Management.Web.App_Start
                     AuthenticationOptions = new IdentityServer3.Core.Configuration.AuthenticationOptions
                     {
                         EnablePostSignOutAutoRedirect = true,
-                        //IdentityProviders = ConfigureIdentityProviders
+                        IdentityProviders = ConfigureIdentityProviders
                     }
 
                 });
@@ -92,6 +92,9 @@ namespace Store.Management.Web.App_Start
                          nid.AddClaim(sub);
                          nid.AddClaims(roles);
 
+                         // keep the id_token for logout
+                         nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+
                          // add some other app specific claim
                          nid.AddClaim(new Claim("app_specific", "some data"));
 
@@ -101,10 +104,38 @@ namespace Store.Management.Web.App_Start
 
                          return Task.FromResult(0);
 
+                     },
+
+                     RedirectToIdentityProvider = n =>
+                     {
+                         if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.LogoutRequest)
+                         {
+                             var idTokenHint = n.OwinContext.Authentication.User.FindFirst("id_token");
+
+                             if (idTokenHint != null)
+                             {
+                                 n.ProtocolMessage.IdTokenHint = idTokenHint.Value;
+                             }
+                         }
+
+                         return Task.FromResult(0);
                      }
                  }
             });
             
+        }
+
+        private void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)
+        {
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            {
+                AuthenticationType = "Google",
+                Caption = "Sign-in with Google",
+                SignInAsAuthenticationType = signInAsType,
+
+                ClientId = "91033992413-jje1duc62cgc4747o215escgfnglm83d.apps.googleusercontent.com",
+                ClientSecret = "6zLwk4-AmOsM7xeqGinxEsFT"
+            });
         }
 
         X509Certificate2 LoadCertificate()

@@ -20,6 +20,10 @@ namespace Store.Management.Web.IdentityServer
                 {
                     "https://localhost:44306/"
                 },
+                PostLogoutRedirectUris = new List<string>
+                {
+                    "https://localhost:44306/"
+                },
 
                 AllowAccessToAllScopes = true
             }
