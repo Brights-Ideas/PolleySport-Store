@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using Thinktecture.IdentityModel.Mvc;
@@ -20,7 +17,7 @@ namespace Store.Management.Web.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View((User as ClaimsPrincipal).Claims);
+            return View((User as ClaimsPrincipal)?.Claims);
         }
 
         [ResourceAuthorize("Write", "ContactDetails")]
