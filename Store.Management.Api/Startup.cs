@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
-//using IdentityServer3.AccessTokenValidation;
+using IdentityServer3.AccessTokenValidation;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Linq;
@@ -15,6 +15,12 @@ namespace Store.Management.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions()
+            {
+                Authority = "",
+                RequiredScopes = new []{"sampleApi"}
+            });
+
             // web api configuration
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
