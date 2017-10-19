@@ -3,7 +3,7 @@ using IdentityServer3.Core.Services.InMemory;
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Store.Management.Web.IdentityServer
+namespace Identity.Web.Stores
 {
     public static class Users
     {

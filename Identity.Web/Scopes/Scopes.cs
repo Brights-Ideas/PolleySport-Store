@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Store.Management.Web.IdentityServer
+namespace Identity.Web
 {
     public static class Scopes
     {
