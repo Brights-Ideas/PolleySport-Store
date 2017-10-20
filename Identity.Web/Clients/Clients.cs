@@ -18,8 +18,7 @@ namespace Identity.Web
 
                     RedirectUris = new List<string>
                     {
-                        "https://localhost:44383/"
-                        //"https://localhost:44341/"
+                        "http://localhost:54602/"
                     },
                     //PostLogoutRedirectUris = new List<string>
                     //{

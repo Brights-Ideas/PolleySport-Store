@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Thinktecture.IdentityModel.Owin.ResourceAuthorization;
 
-namespace Store.Management.Web.IdentityServer
+namespace Identity.Web.Stores
 {
     public class AuthorizationManager : ResourceAuthorizationManager
     {
