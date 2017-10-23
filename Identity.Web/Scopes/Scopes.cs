@@ -20,20 +20,20 @@ namespace Identity.Web
                 {
                     new ScopeClaim("role")
                 }
-            }
-            //new Scope
-            //{
-            //    Enabled = true,
-            //    DisplayName = "Sample API",
-            //    Name = "sampleApi",
-            //    Description = "Access to a sample API",
-            //    Type = ScopeType.Resource,
+            },
+            new Scope
+            {
+                Enabled = true,
+                DisplayName = "Sample API",
+                Name = "sampleApi",
+                Description = "Access to a sample API",
+                Type = ScopeType.Resource,
 
-            //    Claims = new List<ScopeClaim>
-            //    {
-            //        new ScopeClaim("role")
-            //    }
-            //}
+                Claims = new List<ScopeClaim>
+                {
+                    new ScopeClaim("role")
+                }
+            }
         };
 
             scopes.AddRange(StandardScopes.All);

@@ -24,8 +24,29 @@ namespace Identity.Web
                     //{
                     //    "https://localhost:44383/"
                     //},
+                    //AllowAccessToAllScopes
+                    AllowedScopes = new List<string>
+                    {
+                        "openid",
+                        "profile",
+                        "roles",
+                        "sampleApi"
+                    }
+                },
+                new Client
+                {
+                    ClientName = "MVC Client (service communication)",
+                    ClientId = "mvc_service",
+                    Flow = Flows.ClientCredentials,
 
-                    AllowAccessToAllScopes = true
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        "sampleApi"
+                    }
                 }
             };
         }

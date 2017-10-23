@@ -15,9 +15,9 @@ namespace Store.Management.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions()
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
             {
-                Authority = "",
+                Authority = "https://localhost:44383/identity",
                 RequiredScopes = new []{"sampleApi"}
             });
 

@@ -10,6 +10,8 @@ using Owin;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens;
+using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 
@@ -63,24 +65,24 @@ namespace Identity.Web
             {
                 Authority = "https://localhost:44383/identity",
                 ClientId = "mvc",
-                Scope = "openid profile roles",
+                Scope = "openid profile roles sampleApi",
                 RedirectUri = "http://localhost:54602/",
-                ResponseType = "id_token",
+                ResponseType = "id_token token",
 
                 SignInAsAuthenticationType = "Cookies",
                 UseTokenLifetime = false,
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 {
-                    SecurityTokenValidated = n =>
+                    SecurityTokenValidated = async n =>
                     {
                         var id = n.AuthenticationTicket.Identity;
 
                          // we want to keep first name, last name, subject and roles
-                         var givenName = id.FindFirst(Constants.ClaimTypes.GivenName);
-                        var familyName = id.FindFirst(Constants.ClaimTypes.FamilyName);
-                        var sub = id.FindFirst(Constants.ClaimTypes.Subject);
-                        var roles = id.FindAll(Constants.ClaimTypes.Role);
+                        //var givenName = id.FindFirst(Constants.ClaimTypes.GivenName);
+                        //var familyName = id.FindFirst(Constants.ClaimTypes.FamilyName);
+                        //var sub = id.FindFirst(Constants.ClaimTypes.Subject);
+                        //var roles = id.FindAll(Constants.ClaimTypes.Role);
 
                          // create new identity and set name and role claim type
                          var nid = new ClaimsIdentity(
@@ -88,22 +90,35 @@ namespace Identity.Web
                             Constants.ClaimTypes.GivenName,
                             Constants.ClaimTypes.Role);
 
-                        nid.AddClaim(givenName);
-                        nid.AddClaim(familyName);
-                        nid.AddClaim(sub);
-                        nid.AddClaims(roles);
+                        // get userinfo data
+                        var userInfoClient = new UserInfoClient(n.Options.Authority + "/connect/userinfo");//,
+                                //n.ProtocolMessage.AccessToken);
 
-                         // keep the id_token for logout
-                         nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+                        var userInfo = await userInfoClient.GetAsync(n.ProtocolMessage.Token);
+                        userInfo.Claims.ToList().ForEach(ui => nid.AddClaim(new Claim(ui.ValueType, ui.Value)));
 
-                         // add some other app specific claim
-                         nid.AddClaim(new Claim("app_specific", "some data"));
+                        //nid.AddClaim(givenName);
+                        //nid.AddClaim(familyName);
+                        //nid.AddClaim(sub);
+                        //nid.AddClaims(roles);
+
+                        // keep the id_token for logout
+                        nid.AddClaim(new Claim("id_token", n.ProtocolMessage.IdToken));
+
+                        // add access token for sample API
+                        nid.AddClaim(new Claim("access_token", n.ProtocolMessage.AccessToken));
+
+                        // keep track of access token expiration
+                        nid.AddClaim(new Claim("expires_at", DateTimeOffset.Now.AddSeconds(int.Parse(n.ProtocolMessage.ExpiresIn)).ToString()));
+
+                        // add some other app specific claim
+                        nid.AddClaim(new Claim("app_specific", "some data"));
 
                         n.AuthenticationTicket = new AuthenticationTicket(
                             nid,
                             n.AuthenticationTicket.Properties);
 
-                        return Task.FromResult(0);
+                        //return Task.FromResult(0);
 
                     },
 
