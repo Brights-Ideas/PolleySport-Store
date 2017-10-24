@@ -15,10 +15,11 @@ namespace Identity.Web.Stores
                 {
                     Username = "bob",
                     Password = "secret",
-                    Subject = "1",
+                    Subject = "bob@gmail.com",
 
                     Claims = new[]
                     {
+                        new Claim(Constants.ClaimTypes.Name, "Bob Smith"),
                         new Claim(Constants.ClaimTypes.GivenName, "Bob"),
                         new Claim(Constants.ClaimTypes.FamilyName, "Smith"),
                         new Claim(Constants.ClaimTypes.Role, "Geek"),

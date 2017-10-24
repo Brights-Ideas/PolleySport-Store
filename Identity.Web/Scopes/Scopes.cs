@@ -33,6 +33,19 @@ namespace Identity.Web
                 {
                     new ScopeClaim("role")
                 }
+            },
+            new Scope
+            {
+                Enabled = true,
+                DisplayName = "Read User Data",//DisplayName = "Sample API",
+                Name = "read",//Name = "sampleApi",
+                Description = "Access to a sample API",
+                Type = ScopeType.Resource,
+
+                Claims = new List<ScopeClaim>
+                {
+                    new ScopeClaim("role")
+                }
             }
         };
 

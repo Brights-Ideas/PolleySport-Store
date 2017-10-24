@@ -1,4 +1,5 @@
-﻿using IdentityServer3.Core.Models;
+﻿using IdentityServer3.Core;
+using IdentityServer3.Core.Models;
 using System.Collections.Generic;
 
 namespace Identity.Web
@@ -16,6 +17,11 @@ namespace Identity.Web
                     ClientId = "mvc",
                     Flow = Flows.Implicit,
 
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+
                     RedirectUris = new List<string>
                     {
                         "http://localhost:54602/"
@@ -24,20 +30,21 @@ namespace Identity.Web
                     //{
                     //    "https://localhost:44383/"
                     //},
-                    //AllowAccessToAllScopes
                     AllowedScopes = new List<string>
                     {
                         "openid",
                         "profile",
                         "roles",
-                        "sampleApi"
+                        "sampleApi",
+                        "read"
                     }
                 },
                 new Client
                 {
+                    Enabled = true,
                     ClientName = "MVC Client (service communication)",
                     ClientId = "mvc_service",
-                    Flow = Flows.ClientCredentials,
+                    Flow = Flows.ResourceOwner,
 
                     ClientSecrets = new List<Secret>
                     {
@@ -45,7 +52,8 @@ namespace Identity.Web
                     },
                     AllowedScopes = new List<string>
                     {
-                        "sampleApi"
+                        Constants.StandardScopes.OpenId,
+                        "read"
                     }
                 }
             };

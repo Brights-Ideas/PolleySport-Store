@@ -12,6 +12,9 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
+using System.Web.Helpers;
+using System.IdentityModel.Tokens;
+using System.Collections.Generic;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -21,6 +24,9 @@ namespace Store.Management.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = Constants.ClaimTypes.Subject;
+            JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
+
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "Cookies"
@@ -41,7 +47,7 @@ namespace Store.Management.Web
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
-                Authority = "https://localhost:44383/identity", //Authority = "https://localhost:44319/identity",
+                Authority = "https://localhost:44383", //Authority = "https://localhost:44319/identity",
 
                 ClientId = "mvc",
                 Scope = "openid profile roles sampleApi",

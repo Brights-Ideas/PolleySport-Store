@@ -30,15 +30,17 @@ namespace Identity.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = Constants.ClaimTypes.Subject;
-            JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
+            //AntiForgeryConfig.UniqueClaimTypeIdentifier = Constants.ClaimTypes.Subject;
+            //JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
 
-            app.Map("/identity", idsrvApp =>
-            {
-                idsrvApp.UseIdentityServer(new IdentityServerOptions
+            //app.Map("/identity", idsrvApp =>
+            //{
+                //idsrvApp.UseIdentityServer(new IdentityServerOptions
+                app.UseIdentityServer(new IdentityServerOptions
                 {
                     SiteName = "Embedded IdentityServer",
                     SigningCertificate = LoadCertificate(),
+                    RequireSsl = false,
 
                     Factory = new IdentityServerServiceFactory()
                                 .UseInMemoryUsers(Users.Get())
@@ -52,7 +54,7 @@ namespace Identity.Web
                     }
 
                 });
-            });
+            //});
 
             //app.UseResourceAuthorization(new AuthorizationManager());
 
@@ -78,7 +80,7 @@ namespace Identity.Web
                     {
                         var id = n.AuthenticationTicket.Identity;
 
-                         // we want to keep first name, last name, subject and roles
+                        // we want to keep first name, last name, subject and roles
                         //var givenName = id.FindFirst(Constants.ClaimTypes.GivenName);
                         //var familyName = id.FindFirst(Constants.ClaimTypes.FamilyName);
                         //var sub = id.FindFirst(Constants.ClaimTypes.Subject);

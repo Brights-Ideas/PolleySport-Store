@@ -16,8 +16,8 @@ namespace PolleySport.Store.Api
         {
             app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
             {
-                Authority = "https://localhost:44383/identity",
-                RequiredScopes = new[] { "sampleApi" }
+                Authority = "https://localhost:44383"///identity",
+                //RequiredScopes = new[] { "sampleApi" }
             });
 
             // add app local claims per request
