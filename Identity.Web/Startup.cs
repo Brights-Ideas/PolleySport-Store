@@ -95,7 +95,7 @@ namespace Identity.Web
                                 //n.ProtocolMessage.AccessToken);
 
                         var userInfo = await userInfoClient.GetAsync(n.ProtocolMessage.Token);
-                        userInfo.Claims.ToList().ForEach(ui => nid.AddClaim(new Claim(ui.ValueType, ui.Value)));
+                        userInfo.Claims.ToList().ForEach(ui => nid.AddClaim(new Claim(ui.Type, ui.Value)));
 
                         //nid.AddClaim(givenName);
                         //nid.AddClaim(familyName);

@@ -35,12 +35,16 @@ namespace Store.Management.Web.Controllers
             var client = new HttpClient();
             client.SetBearerToken(token);
 
-            var json = await client.GetStringAsync("https://localhost:44384/identity");
+            //Store.Managment.Api
+            //var json = await client.GetStringAsync("https://localhost:44384/identity");
+            //PolleySport.Store.Api
+            var json = await client.GetStringAsync("https://localhost:44388/api/values");
             return JArray.Parse(json).ToString();
         }
 
         private async Task<TokenResponse> GetTokenAsync()
         {
+            //Identity.Web
             var client = new TokenClient(
                 "https://localhost:44383/identity/connect/token",
                 "mvc_service",
