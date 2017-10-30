@@ -21,6 +21,13 @@ using IdentityModel.Client;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using Identity.Web.Stores;
+using IdentityServer3.EntityFramework;
+using System.Configuration;
+using PolleySport.Data.Repositories;
+using System.Data.SqlClient;
+using IdentityServer3.Core.Models;
+using IdentityServer3.Core.Services;
+using PolleySport.Data.Interfaces;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -30,22 +37,43 @@ namespace Identity.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            //AntiForgeryConfig.UniqueClaimTypeIdentifier = Constants.ClaimTypes.Subject;
-            //JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
-
             //app.Map("/identity", idsrvApp =>
             //{
-                //idsrvApp.UseIdentityServer(new IdentityServerOptions
-                app.UseIdentityServer(new IdentityServerOptions
+            //idsrvApp.UseIdentityServer(new IdentityServerOptions
+            var entityFrameworkOptions = new EntityFrameworkServiceOptions
+            {
+                ConnectionString =
+                    ConfigurationManager.ConnectionStrings["BrightsIdeas.Idsvr"].ConnectionString
+            };
+
+            var inMemoryManager = new InMemoryManager();
+            SetupClients(inMemoryManager.GetClients(), entityFrameworkOptions);
+            SetupScopes(inMemoryManager.GetScopes(), entityFrameworkOptions);
+
+            var userRepository = new UserRepository(
+                () => new SqlConnection(ConfigurationManager.ConnectionStrings["BrightsIdeas"].ConnectionString)
+            );
+
+            var factory = new IdentityServerServiceFactory();
+            factory.RegisterConfigurationServices(entityFrameworkOptions);
+            factory.RegisterOperationalServices(entityFrameworkOptions);
+            factory.UserService = new Registration<IUserService>(
+                typeof(BrightsIdeasUserService));
+            factory.Register(new Registration<IUserRepository>(userRepository));
+            //factory.ConfigureDefaultViewService(viewServiceOptions);
+
+            new TokenCleanup(entityFrameworkOptions, 1).Start();
+
+            app.UseIdentityServer(new IdentityServerOptions
                 {
                     SiteName = "Embedded IdentityServer",
                     SigningCertificate = LoadCertificate(),
                     RequireSsl = false,
 
-                    Factory = new IdentityServerServiceFactory()
-                                .UseInMemoryUsers(Users.Get())
-                                .UseInMemoryClients(Clients.Get())
-                                .UseInMemoryScopes(Scopes.Get()),
+                    Factory = factory, //new IdentityServerServiceFactory()
+                                //.UseInMemoryUsers(Users.Get())
+                                //.UseInMemoryClients(Clients.Get())
+                                //.UseInMemoryScopes(Scopes.Get()),
 
                     AuthenticationOptions = new IdentityServer3.Core.Configuration.AuthenticationOptions
                     {
@@ -68,7 +96,7 @@ namespace Identity.Web
                 Authority = "https://localhost:44383/identity",
                 ClientId = "mvc",
                 Scope = "openid profile roles sampleApi",
-                RedirectUri = "http://localhost:54602/",
+                RedirectUri = "http://localhost:63170/",
                 ResponseType = "id_token token",
 
                 SignInAsAuthenticationType = "Cookies",
@@ -160,6 +188,42 @@ namespace Identity.Web
         {
             return new X509Certificate2(
                 $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\identityServer\idsrv3test.pfx", "idsrv3test");
+        }
+
+        public void SetupClients(IEnumerable<Client> clients,
+                            EntityFrameworkServiceOptions options)
+        {
+            using (var context =
+                new ClientConfigurationDbContext(options.ConnectionString,
+                                                options.Schema))
+            {
+                if (context.Clients.Any()) return;
+
+                foreach (var client in clients)
+                {
+                    context.Clients.Add(client.ToEntity());
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void SetupScopes(IEnumerable<Scope> scopes,
+                                 EntityFrameworkServiceOptions options)
+        {
+            using (var context =
+                new ScopeConfigurationDbContext(options.ConnectionString,
+                                                options.Schema))
+            {
+                if (context.Scopes.Any()) return;
+
+                foreach (var scope in scopes)
+                {
+                    context.Scopes.Add(scope.ToEntity());
+                }
+
+                context.SaveChanges();
+            }
         }
     }
 }
