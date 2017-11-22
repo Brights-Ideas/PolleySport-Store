@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace PolleySport.Store.Api
+namespace PolleySport.Api
 {
     public class FilterConfig
     {

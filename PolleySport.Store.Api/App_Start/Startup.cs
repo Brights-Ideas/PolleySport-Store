@@ -5,6 +5,10 @@ using IdentityServer3.AccessTokenValidation;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Linq;
+using Autofac;
+using System.Reflection;
+using PolleySport.Store.Api.Autofac.Modules;
+using Autofac.Integration.WebApi;
 
 [assembly: OwinStartup(typeof(PolleySport.Store.Api.Startup))]
 
@@ -14,6 +18,15 @@ namespace PolleySport.Store.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            var config = GlobalConfiguration.Configuration;
+
+            var builder = new ContainerBuilder();
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterModule<PolleySportModule>();
+
+            var container = builder.Build();
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+
             app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
             {
                 Authority = "https://localhost:44383"///identity",
@@ -31,8 +44,8 @@ namespace PolleySport.Store.Api
             });
 
             // web api configuration
-            var config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
+            //var config = new HttpConfiguration();
+            //config.MapHttpAttributeRoutes();
 
             app.UseWebApi(config);
 

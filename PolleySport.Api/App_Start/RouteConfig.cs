@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace PolleySport.Store.Api
+namespace PolleySport.Api
 {
     public class RouteConfig
     {

@@ -2,6 +2,8 @@
 using IdentityServer3.Core.Services.Default;
 using PolleySport.Data.Interfaces;
 using System.Threading.Tasks;
+using PolleySport.Data.Models;
+using IdentityServer3.Core.Services;
 
 namespace Identity.Web
 {
@@ -29,5 +31,22 @@ namespace Identity.Web
             context.AuthenticateResult =
                 new AuthenticateResult(context.UserName, context.UserName);
         }
+
+        public async Task<User> GetAsync(string username, string password)
+        {
+            var user = await userRepository.GetAsync(username,
+                HashHelper.Sha512(password + username));
+
+            return user;
+        }
+
+        public async Task<User> GetApiUserByName(string username)
+        {
+            var user = await userRepository.GetAsync(username);
+
+            return user;
+            //throw new System.NotImplementedException();
+        }
+
     }
 }

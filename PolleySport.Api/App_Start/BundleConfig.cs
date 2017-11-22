@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace PolleySport.Store.Api
+namespace PolleySport.Api
 {
     public class BundleConfig
     {
