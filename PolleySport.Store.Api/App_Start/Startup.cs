@@ -1,18 +1,18 @@
-﻿using Microsoft.Owin;
-using Owin;
-using System.Web.Http;
-using IdentityServer3.AccessTokenValidation;
-using System.Threading.Tasks;
-using System.Security.Claims;
-using System.Linq;
-using Autofac;
+﻿using System;
+using System.IdentityModel.Tokens;
 using System.Reflection;
-using PolleySport.Store.Api.Autofac.Modules;
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Http;
+using Autofac;
 using Autofac.Integration.WebApi;
+using IdentityServer3.AccessTokenValidation;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Jwt;
+using Owin;
+using SocialNetwork.Api.Autofac.Modules;
 
-[assembly: OwinStartup(typeof(PolleySport.Store.Api.Startup))]
-
-namespace PolleySport.Store.Api
+[assembly: OwinStartup(typeof(SocialNetwork.Api.Startup))]
+namespace SocialNetwork.Api
 {
     public class Startup
     {
@@ -22,33 +22,18 @@ namespace PolleySport.Store.Api
 
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterModule<PolleySportModule>();
+            builder.RegisterModule<SocialNetworkModule>();
 
             var container = builder.Build();
+
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
-            {
-                Authority = "https://localhost:44383"///identity",
-                //RequiredScopes = new[] { "sampleApi" }
-            });
-
-            // add app local claims per request
-            app.UseClaimsTransformation(incoming =>
-            {
-                //either add claims to incoming, or create new principal
-                var appPrincipal = new ClaimsPrincipal(incoming);
-                incoming.Identities.First().AddClaim(new Claim("appSpecific", "some_value"));
-
-                return Task.FromResult(appPrincipal);
-            });
-
-            // web api configuration
-            //var config = new HttpConfiguration();
-            //config.MapHttpAttributeRoutes();
+            //app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            //{
+            //    Authority = "http://localhost:22710"
+            //});
 
             app.UseWebApi(config);
-
         }
     }
 }

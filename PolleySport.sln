@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySport.Data", "PolleyS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySport.Store.Web", "PolleySport.Store.Web\PolleySport.Store.Web.csproj", "{C2FD2DBB-B25B-4CB8-8460-A2F04CFFAADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork.Api", "SocialNetwork.Api\SocialNetwork.Api.csproj", "{B82E5097-B1CD-4507-B00D-F7B0017217BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolleySport.Store.Api", "PolleySport.Store.Api\PolleySport.Store.Api.csproj", "{B82E5097-B1CD-4507-B00D-F7B0017217BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
