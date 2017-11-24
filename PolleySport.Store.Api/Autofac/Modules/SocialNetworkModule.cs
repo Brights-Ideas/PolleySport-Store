@@ -14,6 +14,7 @@ namespace SocialNetwork.Api.Autofac.Modules
             builder.Register(x => new Func<IDbConnection>(() => new SqlConnection(ConfigurationManager.ConnectionStrings["BrightsIdeas"].ConnectionString)));
 
             builder.RegisterType<UserRepository>().AsImplementedInterfaces().AsSelf();
+            builder.RegisterType<StoreRepository>().AsImplementedInterfaces().AsSelf();
             //builder.RegisterType<ProfileRepository>().AsImplementedInterfaces().AsSelf();
             //builder.RegisterType<ShoutRepository>().AsImplementedInterfaces().AsSelf();
         }
